@@ -26,8 +26,7 @@ gomSVD <- function(U, V, d, r=10, q=0.4, e=0.2, eps=0) {
   K <- dim(U)[2]
   S <- pruning(U, r, q, e)  # obtain the subjects to be pruned
   X = U[-S,]
-  indices_X <- spa(X)$indices  # SPA to find the pure subjects for the pruned matrix
-  indices_U <- ((1:N)[-S])[indices_X]  # the pure subjects for the original matrix
+  indices_X <- spa(X)$indices  # SPA finds the pure subjects for the pruned matrix
   vertices <- X[indices_X, ]  # the simplex vertices
   
   # estimation for Pi
@@ -47,7 +46,6 @@ gomSVD <- function(U, V, d, r=10, q=0.4, e=0.2, eps=0) {
   
   t2 <- Sys.time()
   
-  return(list(P_hat=P_hat, T_hat=T_hat, R_hat=R_hat, 
-              S=S, indices_U=indices_U, t=t2-t1))
+  return(list(P_hat=P_hat, T_hat=T_hat, R_hat=R_hat, S=S, t=t2-t1))
 }
 
